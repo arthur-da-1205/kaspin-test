@@ -1,11 +1,18 @@
+require("dotenv").config();
 const express = require("express");
 
 const app = express();
 
+const adminRouter = require("./routes/admin.routes");
+
 app.get("/", (req, res) => {
-  res.sendStatus(200);
+  res.json({
+    message: "API is Running",
+  });
 });
 
-app.listen(5000, () => {
+app.use(adminRouter);
+
+app.listen(process.env.PORT, () => {
   console.log("Listening to port: 5000");
 });
