@@ -1,5 +1,8 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
+const { curly } = require("node-libcurl");
+
+const url = "https://kasirpintar.co.id/allAddress.txt";
 
 exports.loginAdmin = (req, res) => {
   // dummy user
@@ -11,13 +14,13 @@ exports.loginAdmin = (req, res) => {
 
   jwt.sign({ user }, process.env.ACCESS_TOKEN, (err, token) => {
     res.json({
+      user,
       token,
     });
   });
 };
 
-exports.getData = (req, res) => {
-  return res.json({
-    data: "Preparing fetch data...",
-  });
+exports.getData = async (req, res) => {
+  const { statusCode, data, headers } = await curly.get(url);
+  res.json({ data });
 };
