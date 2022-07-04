@@ -22,5 +22,15 @@ exports.loginAdmin = (req, res) => {
 
 exports.getData = async (req, res) => {
   const { statusCode, data, headers } = await curly.get(url);
-  res.json({ data });
+  const result = JSON.parse(data);
+  res.send(result);
+};
+
+exports.getKotaId = async (req, res) => {
+  const id = req.body.kota_id;
+  const { statusCode, data, headers } = await curly.get(url);
+  const result = JSON.parse(data);
+
+  const filterKota = result.filter((x) => x.address_kecamatan.kota_id === id);
+  console.log(filterKota);
 };

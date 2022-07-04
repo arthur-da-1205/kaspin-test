@@ -13,4 +13,10 @@ router.get(
   adminController.getData
 );
 
+router.get(
+  "/api/data-kotaid",
+  [middleware.verifiToken],
+  adminController.getKotaId
+);
+
 module.exports = router;
